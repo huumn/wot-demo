@@ -6,16 +6,37 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "vercel-build": "prisma migrate deploy && next build",
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/eslint-plugin-next": "^13.4.19",
+    "@react-sigma/core": "^3.4.2",
+    "@react-sigma/layout-forceatlas2": "^3.4.2",
+    "@vercel/postgres": "^0.4.1",
     "autoprefixer": "10.4.15",
     "eslint": "8.48.0",
-    "eslint-config-next": "13.4.19",
+    "graphology": "^0.25.4",
+    "graphology-types": "^0.24.7",
+    "lodash": "^4.17.21",
     "next": "13.4.19",
     "postcss": "8.4.29",
+    "prisma": "^5.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sigma": "^2.4.0",
     "tailwindcss": "3.3.3"
+  },
+  "standard": {
+    "plugins": [
+      "@next/next"
+    ],
+    "extends": [
+      "next"
+    ]
+  },
+  "devDependencies": {
+    "postgres": "^3.3.5",
+    "standard": "^17.1.0"
   }
 }

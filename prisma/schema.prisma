@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model web {
+  name  String  @id
+  prize prize[]
+  human human[]
+}
+
+model prize {
+  id       Int     @id @default(autoincrement())
+  name     String
+  web      web     @relation(fields: [web_name], references: [name])
+  web_name String
+  human    human[]
+
+  @@unique([name, web_name])
+}
+
+model human {
+  id        Int     @id @default(autoincrement())
+  name      String
+  prize     prize   @relation(fields: [prize_id], references: [id])
+  prize_id  Int
+  web       web     @relation(fields: [web_name], references: [name])
+  web_name  String
+  trust_out trust[] @relation("trust_out")
+  trust_in  trust[] @relation("trust_in")
+
+  @@unique([name, web_name])
+}
+
+model trust {
+  from    human @relation(name: "trust_out", fields: [from_id], references: [id])
+  from_id Int
+  to      human @relation(name: "trust_in", fields: [to_id], references: [id])
+  to_id   Int
+  trust   Int
+
+  @@id([from_id, to_id])
+}
