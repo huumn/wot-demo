@@ -1,5 +1,6 @@
 'use client'
 
+import { getSelfURL } from '@/lib/url'
 import { useEffect, useState } from 'react'
 
 export default function usePolling (route, options, interval) {
@@ -11,7 +12,7 @@ export default function usePolling (route, options, interval) {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + route, options)
+      const response = await fetch(getSelfURL() + route, options)
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`)
       }

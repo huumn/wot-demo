@@ -1,9 +1,10 @@
+import { getSelfURL } from '@/lib/url'
 import Link from 'next/link'
 
 export const dynamic = 'force-dynamic'
 
 export default async function Page () {
-  const res = await fetch(process.env.NEXT_PUBLIC_VERCEL_URL + '/api/web')
+  const res = await fetch(getSelfURL() + '/api/web')
   const { result: webs } = await res.json()
 
   return (
